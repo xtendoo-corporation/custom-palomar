@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* palomar_administration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-30 08:58+0000\n"
+"PO-Revision-Date: 2024-09-30 08:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: palomar_administration
+#: model:ir.module.category,name:palomar_administration.group_others_security
+msgid "Otros permisos especiales"
+msgstr ""
+
+#. module: palomar_administration
+#: model:ir.module.category,description:palomar_administration.group_others_security
+msgid "Permisos especiales varios"
+msgstr ""
+
+#. module: palomar_administration
+#: model:res.groups,comment:palomar_administration.show_cost_price
+msgid "Permission to view costs"
+msgstr ""
+
+#. module: palomar_administration
+#: model:res.groups,comment:palomar_administration.show_margins
+msgid "Permission to view margins"
+msgstr ""
+
+#. module: palomar_administration
+#: model:res.groups,name:palomar_administration.show_margins
+msgid "Show Margins"
+msgstr ""
+
+#. module: palomar_administration
+#: model:res.groups,name:palomar_administration.show_cost_price
+msgid "Show cost price"
+msgstr ""

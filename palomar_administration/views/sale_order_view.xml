@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+      <record id="palomar_administration.saleorder_form_inherit_margins" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.margins</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='margin']" position="attributes">
+                     <attribute name="groups">palomar_administration.show_margins</attribute>
+                </xpath>
+                <xpath expr="//field[@name='margin_percent']" position="attributes">
+                     <attribute name="groups">palomar_administration.show_margins</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="palomar_administration.saleorder_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='margin']" position="attributes">
+                     <attribute name="groups">palomar_administration.show_margins</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='order_line']/tree//field[@name='purchase_price']" position="replace">
+                    <field name="purchase_price" groups="palomar_administration.show_cost_price"
+                           attrs="{'readonly': [('is_admin', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']//field[@name='purchase_price']" position="attributes">
+                    <attribute name="groups">palomar_administration.show_cost_price</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_tree_view_inherit" model="ir.ui.view" >
+            <field name="name">product.template.tree.view.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="groups">palomar_administration.show_cost_price</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
