@@ -19,5 +19,12 @@
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
             <field name="comment">Permission to view costs</field>
         </record>
+
+        <record id="change_list_prices" model="res.groups">
+            <field name="category_id" ref="group_others_security"/>
+            <field name="name">Change list prices</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="comment">Permission to change list prices</field>
+        </record>
     </data>
 </odoo>
