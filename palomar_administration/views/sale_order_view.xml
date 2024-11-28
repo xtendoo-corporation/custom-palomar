@@ -50,9 +50,23 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='pricelist_id']" position="attributes">
-                      <attribute name="readonly">state in ['cancel', 'sale'] or not user_has_group</attribute>
+                    <attribute name="readonly">state in ['cancel', 'sale'] or not user_has_group</attribute>
                 </xpath>
-               <xpath expr="//header" position="inside">
+                <xpath expr="//header" position="inside">
+                    <field name="user_has_group" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_property_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.product.property.form.inherit.custom</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="product.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_product_pricelist']" position="attributes">
+                    <attribute name="readonly">not user_has_group</attribute>
+                </xpath>
+                <xpath expr="//field[@name='property_product_pricelist']" position="before">
                     <field name="user_has_group" invisible="1"/>
                 </xpath>
             </field>
