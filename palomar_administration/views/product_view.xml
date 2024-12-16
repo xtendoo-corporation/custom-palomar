@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <!-- Permisos del módulo -->
+        <!-- Permisos del módulo product_standard_margin-->
         <record id="view_product_template_form_inherit_margin_groups" model="ir.ui.view">
             <field name="name">product.template.form.inherit.margin.groups</field>
             <field name="model">product.template</field>
@@ -19,7 +19,7 @@
                 </xpath>
             </field>
         </record>
-        <!-- Fin Permisos del módulo -->
+        <!-- Fin Permisos del módulo product_standard_margin-->
 
 
 
