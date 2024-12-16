@@ -9,6 +9,7 @@
                 'base',
                 'sale_margin',
                 'product',
+                'product_standard_margin',
                 ],
     "license": "AGPL-3",
     "data": [

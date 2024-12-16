@@ -14,15 +14,36 @@
                 </xpath>
             </field>
         </record>
+          <!-- Margenes en ventas -->
+            <record id="sale_margin_sale_order_inherit_groups" model="ir.ui.view">
+                <field name="name">sale.order.margin.view.form.inherit.groups</field>
+                <field name="model">sale.order</field>
+                <field name="inherit_id" ref="sale_margin.sale_margin_sale_order" />
+                <field name="arch" type="xml">
+                    <!-- Modificar el campo margin -->
+                    <xpath expr="//field[@name='margin']" position="attributes">
+                        <attribute name="groups">palomar_administration.show_margins</attribute>
+                    </xpath>
+                    <!-- Modificar el label del campo margin -->
+                    <xpath expr="//label[@for='margin']" position="attributes">
+                        <attribute name="groups">palomar_administration.show_margins</attribute>
+                    </xpath>
+                    <!-- Modificar el div contenedor del campo margin -->
+                    <xpath expr="//div[field[@name='margin']]" position="attributes">
+                        <attribute name="groups">palomar_administration.show_margins</attribute>
+                    </xpath>
+                </field>
+            </record>
+            <!-- Fin margenes en ventas -->
 
         <record id="palomar_administration.saleorder_form_inherit" model="ir.ui.view">
             <field name="name">sale.order.form.inherit</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='margin']" position="attributes">
-                    <attribute name="groups">palomar_administration.show_margins</attribute>
-                </xpath>
+<!--                <xpath expr="//field[@name='margin']" position="attributes">-->
+<!--                    <attribute name="groups">palomar_administration.show_margins</attribute>-->
+<!--                </xpath>-->
                 <xpath expr="//field[@name='order_line']/tree//field[@name='purchase_price']" position="replace">
                     <field name="purchase_price" groups="palomar_administration.show_cost_price"
                            attrs="{'readonly': [('is_admin', '=', False)]}"/>

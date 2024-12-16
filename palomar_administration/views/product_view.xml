@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+
+        <!-- Permisos del módulo -->
+        <record id="view_product_template_form_inherit_margin_groups" model="ir.ui.view">
+            <field name="name">product.template.form.inherit.margin.groups</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product_standard_margin.view_product_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='standard_margin']" position="attributes">
+                    <attribute name="groups">palomar_administration.show_margins</attribute>
+                </xpath>
+                <xpath expr="//field[@name='standard_margin_rate']" position="attributes">
+                    <attribute name="groups">palomar_administration.show_margins</attribute>
+                </xpath>
+                <xpath expr="//field[@name='standard_markup_rate']" position="attributes">
+                    <attribute name="groups">palomar_administration.show_margins</attribute>
+                </xpath>
+            </field>
+        </record>
+        <!-- Fin Permisos del módulo -->
+
+
+
         <record model="ir.ui.view" id="show_cost_price_tree_product_template">
             <field name="name">show_cost_price_tree_product_template</field>
             <field name="model">product.template</field>
