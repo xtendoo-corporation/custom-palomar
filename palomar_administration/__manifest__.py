@@ -16,6 +16,7 @@
         "security/security_group.xml",
         "views/sale_order_view.xml",
         "views/product_view.xml",
+        "views/account_move_report.xml",
     ],
     "installable": True,
 }
