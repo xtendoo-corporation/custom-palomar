@@ -13,8 +13,6 @@ class AccountMoveSend(models.TransientModel):
     def _get_default_mail_attachments_widget(self, move, mail_template):
         if mail_template and mail_template.name == 'Factura: Minas Aguas Teñidas':
             attachments =  self._get_placeholder_mail_template_dynamic_attachments_data(move, mail_template)
-            if self.l10n_es_edi_facturae_checkbox_xml:
-                attachments.append(self._get_placeholder_mail_attachments_data(move)[1])
             return attachments
 
         return self._get_placeholder_mail_attachments_data(move) \
