@@ -2,13 +2,16 @@
 <odoo>
     <data>
         <record id="view_out_invoice_tree" model="ir.ui.view">
-            <field name="name">account.out.invoice.tree</field>
+            <field name="name">account.move.tree</field>
             <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_invoice_tree"/>
-            <field name="mode">primary</field>
+            <field name="inherit_id" ref="account.view_out_invoice_tree"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_untaxed_signed']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='amount_total_signed']" position="attributes">
-                    <attribute name="sum" remove="1"/>
+                    <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
         </record>

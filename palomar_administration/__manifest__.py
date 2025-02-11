@@ -15,10 +15,10 @@
     "license": "AGPL-3",
     "data": [
         "security/security_group.xml",
+        "views/account_move_view.xml",
         "views/sale_order_view.xml",
         "views/product_view.xml",
         "views/account_move_report.xml",
-        "views/account_move_views.xml",
     ],
     "installable": True,
 }
