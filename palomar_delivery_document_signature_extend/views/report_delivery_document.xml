@@ -1,0 +1,19 @@
+<odoo>
+    <template id="report_delivery_document_inherit" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='signature']" position="replace">
+            <div t-if="not o.signature" class="oe_structure"></div>
+            <div t-else="" class="mt32 ml64 mr4" name="signature">
+                <div class="offset-8">
+                    <strong>Firma</strong>
+                </div>
+                <div class="offset-8">
+                    <img t-att-src="image_data_uri(o.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+                </div>
+                <div t-if="o.nif" class="offset-8">
+                    <strong>NIF:</strong>
+                    <p t-esc="o.nif"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

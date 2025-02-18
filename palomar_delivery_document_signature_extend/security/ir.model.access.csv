@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+palomar_delivery_document_signature_extend.access_signature_nif_wizard,access_signature_nif_wizard,palomar_delivery_document_signature_extend.model_signature_nif_wizard,base.group_user,1,1,1,1
