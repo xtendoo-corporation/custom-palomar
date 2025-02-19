@@ -9,7 +9,8 @@
                  <button name="action_open_signature_nif_wizard"
                     string="Validar + Firma + NIF"
                     type="object"
-                    class="oe_highlight"/>
+                    class="oe_highlight"
+                    invisible="state == 'done' or picking_type_code != 'outgoing'"/>
             </xpath>
         </field>
     </record>
