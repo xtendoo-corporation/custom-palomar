@@ -6,7 +6,7 @@
             <form string="Firma y NIF">
                 <group>
                     <field name="nif"/>
-                    <field name="signature" widget="signature"/>
+                    <field name="signature" widget="custom_signature"/>
                 </group>
                 <footer>
                     <button string="Cancelar" class="btn-secondary" special="cancel"/>

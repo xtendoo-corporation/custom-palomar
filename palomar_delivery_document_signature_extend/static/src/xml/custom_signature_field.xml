@@ -1,0 +1,10 @@
+<templates>
+    <t t-name="web.CustomSignatureField">
+        <div class="o_custom_signature">
+            <input type="text" t-on-input="onNifChange" placeholder="Enter NIF" />
+            <div class="o_signature" t-att-style="sizeStyle" t-on-click="onClickSignature">
+                <img t-att-src="getUrl" t-on-error="onLoadFailed" />
+            </div>
+        </div>
+    </t>
+</templates>

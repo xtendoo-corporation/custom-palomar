@@ -9,6 +9,7 @@
     "depends": [
         "base",
         "stock",
+        "web",
     ],
     "data": [
         "views/report_delivery_document.xml",
@@ -16,6 +17,12 @@
         "wizards/signature_nif_wizard.xml",
         'security/ir.model.access.csv',
     ],
+    'assets': {
+        'web.assets_backend': [
+            # 'palomar_delivery_document_signature_extend/static/src/js/custom_signature_field.js',
+            # 'palomar_delivery_document_signature_extend/static/src/xml/custom_signature_field.xml',
+        ],
+    },
     "installable": True,
     "application": False,
     "auto_install": False,

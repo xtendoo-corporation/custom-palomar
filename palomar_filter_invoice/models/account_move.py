@@ -13,5 +13,5 @@ class AccountMove(models.Model):
     def _compute_in_payment_line(self):
         for move in self:
             move.in_payment_line = any(
-                self.env['account.payment.line'].search([('move_id', '=', move.id)])
+                self.env['account.payment.line'].search([('payment_ids', '=', move.id)])
             )
