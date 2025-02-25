@@ -1,4 +1,13 @@
 <odoo>
+
+     <record id="action_recompute_in_payment_line" model="ir.actions.server">
+        <field name="name">Recomputar si están remesadas</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">model._recompute_all_in_payment_line()</field>
+    </record>
+
     <record id="view_account_move_filter_inherit" model="ir.ui.view">
         <field name="name">account.move.filter.inherit</field>
         <field name="model">account.move</field>
@@ -7,6 +16,16 @@
             <xpath expr="//filter[@name='late']" position="after">
                 <filter string="Remesadas" name="in_payment_line" domain="[('in_payment_line', '=', True)]"/>
                 <filter string="No Remesadas" name="in_payment_line" domain="[('in_payment_line', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="view_account_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
             </xpath>
         </field>
     </record>
