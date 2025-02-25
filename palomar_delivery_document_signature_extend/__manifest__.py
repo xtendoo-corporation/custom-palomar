@@ -19,9 +19,8 @@
     ],
     'assets': {
         'web.assets_backend': [
-            # 'palomar_delivery_document_signature_extend/static/src/js/custom_signature_field.js',
-            # 'palomar_delivery_document_signature_extend/static/src/xml/custom_signature_field.xml',
-        ],
+            'palomar_delivery_document_signature_extend/static/src/views/**/*',
+        ]
     },
     "installable": True,
     "application": False,
