@@ -8,10 +8,12 @@
     "depends": [
         'sale',
         'base',
+        'account',
     ],
     "license": "AGPL-3",
     "data": [
         'views/account_move.xml',
     ],
+    'post_init_hook': 'post_init_hook',
     "installable": True,
 }

@@ -3,21 +3,18 @@ from odoo import models, fields, api, _
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
 
-    @api.onchange('payment_line_ids')
-    def _compute_payment_line(self):
+    def draft2open(self):
+        super(AccountPaymentOrder, self).draft2open()
         for order in self:
-            print("*" * 50)
-            print('order', order)
-            print('payment_line_ids:', order.payment_line_ids)
             for line in order.payment_line_ids:
-                print('line:', line)
                 if line.move_line_id:
-                    print('move_line_id:', line.move_line_id)
                     if line.move_line_id.move_id:
                         line.move_line_id.move_id.in_payment_line = True
-                        print("*" * 50)
-                        print('line.move_line_id.move_id.in_payment_line', line.move_line_id.move_id.in_payment_line)
-                    else:
-                        print('move_line_id.move_id is None')
-                else:
-                    print('move_line_id is None')
+
+    def action_cancel(self):
+        super(AccountPaymentOrder, self).action_cancel()
+        for order in self:
+            for line in order.payment_line_ids:
+                if line.move_line_id:
+                    if line.move_line_id.move_id:
+                        line.move_line_id.move_id.in_payment_line = False
