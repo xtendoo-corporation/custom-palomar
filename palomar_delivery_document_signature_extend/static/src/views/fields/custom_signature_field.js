@@ -1,17 +1,22 @@
 /** @odoo-module **/
 
-import { Component, useState } from "@odoo/owl";
+import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { SignatureDialog } from "@web/core/signature/signature_dialog";
-import { _t } from "@web/core/l10n/translation";
+import { url } from "@web/core/utils/urls";
+import { isBinarySize } from "@web/core/utils/binary";
+import { fileTypeMagicWordMap, imageCacheKey } from "@web/views/fields/image/image_field";
+import { CustomSignatureDialog } from "./custom_signature_dialog";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
+import { Component, useState } from "@odoo/owl";
+
+const placeholder = "/web/static/img/placeholder.png";
 
 export class CustomSignatureField extends Component {
     static template = "web.CustomSignatureField";
     static props = {
         ...standardFieldProps,
         defaultFont: { type: String },
-        fullName: { type: String, optional: true },
         height: { type: Number, optional: true },
         previewImage: { type: String, optional: true },
         width: { type: Number, optional: true },
@@ -32,18 +37,17 @@ export class CustomSignatureField extends Component {
 
     get getUrl() {
         const { name, previewImage, record } = this.props;
-            if (isBinarySize(this.value)) {
-                return url("/web/image", {
-                    model: record.resModel,
-                    id: record.resId,
-                    field: previewImage || name,
-                    unique: imageCacheKey(this.rawCacheKey),
-                });
-            } else {
-                const magic = fileTypeMagicWordMap[this.value[0]] || "png";
-            }
+        if (isBinarySize(this.value)) {
+            return url("/web/image", {
+                model: record.resModel,
+                id: record.resId,
+                field: previewImage || name,
+                unique: imageCacheKey(this.rawCacheKey),
+            });
+        } else {
+            const magic = fileTypeMagicWordMap[this.value[0]] || "png";
+            return placeholder;
         }
-        return placeholder;
     }
 
     get sizeStyle() {
@@ -88,6 +92,7 @@ export class CustomSignatureField extends Component {
                 const fullNameData = record.data[fullName];
                 if (record.fields[fullName].type === "many2one") {
                     signName = fullNameData && fullNameData[1];
+                } else {
                     signName = fullNameData;
                 }
                 defaultName = signName === "" ? undefined : signName;
@@ -100,7 +105,7 @@ export class CustomSignatureField extends Component {
                 nameAndSignatureProps,
                 uploadSignature: (signature) => this.uploadSignature(signature),
             };
-            this.dialogService.add(SignatureDialog, dialogProps);
+            this.dialogService.add(CustomSignatureDialog, dialogProps);
         }
     }
 
@@ -111,7 +116,8 @@ export class CustomSignatureField extends Component {
         });
     }
 
-    uploadSignature({ signatureImage }) {
+    uploadSignature({ signatureImage, nif }) {
+        this.state.nif = nif;
         return this.props.record.update({ [this.props.name]: signatureImage[1] || false });
     }
 
