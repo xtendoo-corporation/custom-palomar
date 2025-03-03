@@ -19,6 +19,7 @@
         "views/product_view.xml",
         "views/account_move_report.xml",
         "views/account_move_views.xml",
+        # "views/report_saleorder_document_inherit.xml",
     ],
     "installable": True,
 }
