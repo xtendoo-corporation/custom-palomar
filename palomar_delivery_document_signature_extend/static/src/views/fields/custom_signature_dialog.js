@@ -18,13 +18,16 @@ export class CustomSignatureDialog extends Component {
     }
 
     onClickConfirm() {
-        this.props.uploadSignature({
-            name: this.signature.name,
-            signatureImage: this.signature.getSignatureImage(),
-            nif: this.state.nif,
-        });
-        this.props.close();
-    }
+    console.log("Confirm button clicked");
+    console.log("Signature state:", this.signature);
+    console.log("NIF state:", this.state.nif);
+    this.props.uploadSignature({
+        name: this.signature.name,
+        signatureImage: this.signature.getSignatureImage(),
+        nif: this.state.nif,
+    });
+    this.props.close();
+}
 
     onNifChange(event) {
         this.state.nif = event.target.value;

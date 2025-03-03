@@ -5,8 +5,8 @@
         <field name="arch" type="xml">
             <form string="Firma y NIF">
                 <group>
-                    <field name="nif"/>
-                    <field name="signature" widget="custom_signature"/>
+                    <field name="nif" readonly="0" invisible="1"/>
+                    <field name="custom_signature" widget="custom_signature"/>
                 </group>
                 <footer>
                     <button string="Cancelar" class="btn-secondary" special="cancel"/>

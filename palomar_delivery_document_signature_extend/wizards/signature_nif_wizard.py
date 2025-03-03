@@ -5,9 +5,8 @@ class SignatureNifWizard(models.TransientModel):
     _name = 'signature.nif.wizard'
     _description = 'Wizard para Firma y NIF'
 
-    nif = fields.Char(string='NIF', required=True)
-    signature = fields.Binary(string="Firma")
-
+    nif = fields.Char(string='NIF')
+    custom_signature = fields.Binary(string="Firma")
 
     def action_confirm(self):
         picking = self.env['stock.picking'].browse(self._context.get('active_id'))
@@ -15,15 +14,23 @@ class SignatureNifWizard(models.TransientModel):
         if picking:
             picking.action_assign()
 
-            # Forzar cantidades para validar aunque no haya stock
             for move in picking.move_ids_without_package:
                 move.quantity = move.product_uom_qty
             picking.button_validate()
 
+            signature_bin = False
+            if self.custom_signature:
+                try:
+                    signature_bin = base64.b64decode(self.custom_signature)
+                except Exception as e:
+                    raise ValueError(f"Error decoding signature: {e}")
+
             picking.write({
                 'nif': self.nif,
-                'signature': self.signature,
+                'signature': signature_bin,
             })
+
+            print(f"Nif: {self.nif}")
 
             report = self.env['ir.actions.report'].search([
                 ('report_name', '=', 'stock.action_report_delivery')
@@ -32,7 +39,7 @@ class SignatureNifWizard(models.TransientModel):
             if report:
                 pdf = report.with_context(
                     active_id=picking.id,
-                    signature=self.signature,
+                    custom_signature=self.custom_signature,
                     nif=self.nif
                 )._render_qweb_pdf([picking.id])[0]
 

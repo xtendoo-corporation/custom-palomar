@@ -1,10 +1,17 @@
 <templates>
     <t t-name="web.CustomSignatureField">
-        <div class="o_custom_signature">
-            <input type="text" t-on-input="onNifChange" placeholder="Enter NIF" />
-            <div class="o_signature" t-att-style="sizeStyle" t-on-click="onClickSignature">
-                <img t-att-src="getUrl" t-on-error="onLoadFailed" />
+        <t t-if="value">
+            <img class="o_signature img img-fluid"
+                 alt="Binary file"
+                 t-att-src="getUrl"
+            />
+
+        </t>
+        <t t-else="">
+            <div class="o_signature o_signature_empty" t-att-style="sizeStyle" t-on-click="onClickSignature">
+                <svg t-on-error.stop="onLoadFailed"></svg>
+                <p>SIGNATURE</p>
             </div>
-        </div>
+        </t>
     </t>
 </templates>

@@ -10,6 +10,7 @@ import { CustomSignatureDialog } from "./custom_signature_dialog";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
 import { Component, useState } from "@odoo/owl";
 
+
 const placeholder = "/web/static/img/placeholder.png";
 
 export class CustomSignatureField extends Component {
@@ -23,32 +24,40 @@ export class CustomSignatureField extends Component {
     };
 
     setup() {
-        this.displaySignatureRatio = 3;
-        this.dialogService = useService("dialog");
-        this.state = useState({
-            isValid: true,
-            nif: "",
-        });
-    }
+    this.notification = useService("notification");
+    this.displaySignatureRatio = 3;
+    this.dialogService = useService("dialog");
+    this.state = useState({
+        isValid: true,
+        nif: "",
+    });
+}
+
 
     get rawCacheKey() {
         return this.props.record.data.write_date;
     }
 
     get getUrl() {
-        const { name, previewImage, record } = this.props;
-        if (isBinarySize(this.value)) {
-            return url("/web/image", {
-                model: record.resModel,
-                id: record.resId,
-                field: previewImage || name,
-                unique: imageCacheKey(this.rawCacheKey),
-            });
-        } else {
-            const magic = fileTypeMagicWordMap[this.value[0]] || "png";
-            return placeholder;
-        }
+    if (!this.value) {
+        console.warn("No signature value found, using placeholder.");
+        return "/web/static/img/placeholder.png";  // Imagen por defecto
     }
+
+    if (this.value.startsWith("iVBOR")) {  // Si la imagen ya está en base64
+        console.log("Using base64 image:", this.value);
+        return "data:image/png;base64," + this.value;
+    }
+
+    console.log("Generating Odoo image URL...");
+    return url("/web/image", {
+        model: this.props.record.resModel,
+        id: this.props.record.resId,
+        field: this.props.name,
+        unique: imageCacheKey(this.rawCacheKey),
+    });
+}
+
 
     get sizeStyle() {
         let { width, height } = this.props;
@@ -75,8 +84,9 @@ export class CustomSignatureField extends Component {
     }
 
     get value() {
-        return this.props.record.data[this.props.name];
-    }
+    console.log("Fetching value for custom_signature:", this.props.record.data[this.props.name]);
+    return this.props.record.data[this.props.name];
+}
 
     onClickSignature() {
         if (!this.props.readonly) {
@@ -110,16 +120,25 @@ export class CustomSignatureField extends Component {
     }
 
     onLoadFailed() {
-        this.state.isValid = false;
-        this.notification.add(_t("Could not display the selected image"), {
-            type: "danger",
-        });
-    }
+    this.state.isValid = false;
+    this.notification.add(_t("Could not display the selected image"), {
+        type: "danger",
+    });
+}
 
     uploadSignature({ signatureImage, nif }) {
-        this.state.nif = nif;
-        return this.props.record.update({ [this.props.name]: signatureImage[1] || false });
-    }
+    console.log("Uploading signature with NIF:", nif);
+    console.log("Signature Image:", signatureImage);
+    this.state.nif = nif;
+    this.props.record.update({
+        [this.props.name]: signatureImage[1] || false,
+        nif: nif  // Guardar el NIF en el nuevo campo
+    }).then(() => {
+        console.log("Signature and NIF updated successfully");
+    }).catch((error) => {
+        console.error("Error updating signature and NIF:", error);
+    });
+}
 
     onNifChange(event) {
         this.state.nif = event.target.value;
