@@ -5,12 +5,10 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//widget[@name='signature']" position="before">
-                 <button name="action_open_signature_nif_wizard"
-                    string="Validar + Firma + NIF"
-                    type="object"
-                    class="oe_highlight"
-                    invisible="state == 'done' or picking_type_code != 'outgoing'"/>
+             <xpath expr="//widget[@name='signature']" position="replace">
+             </xpath>
+            <xpath expr="//widget[@name='signature']" position="replace">
+                <widget name="signature_custom" string="Firmar"/>
             </xpath>
         </field>
     </record>

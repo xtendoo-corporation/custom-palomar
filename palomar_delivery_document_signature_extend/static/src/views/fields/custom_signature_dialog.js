@@ -9,7 +9,7 @@ export class CustomSignatureDialog extends Component {
     setup() {
         this.title = _t("Adopt Your Signature");
         this.signature = useState({
-            name: this.props.defaultName,
+            name: this.props.defaultName || "",
             isSignatureEmpty: true,
         });
         this.state = useState({
@@ -21,11 +21,24 @@ export class CustomSignatureDialog extends Component {
     console.log("Confirm button clicked");
     console.log("Signature state:", this.signature);
     console.log("NIF state:", this.state.nif);
+
+    if (this.signature.isSignatureEmpty) {
+        console.error("Signature is empty or invalid.");
+        return;
+    }
+
+    const nif = this.state.nif ? this.state.nif.trim() : "";
+
+    if (!nif) {
+        console.error("NIF is empty or invalid.");
+        return;
+    }
+
     this.props.uploadSignature({
-        name: this.signature.name,
         signatureImage: this.signature.getSignatureImage(),
-        nif: this.state.nif,
+        nif: nif,
     });
+
     this.props.close();
 }
 

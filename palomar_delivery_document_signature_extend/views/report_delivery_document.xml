@@ -7,8 +7,7 @@
                     <strong>Firma</strong>
                 </div>
                 <div class="offset-8">
-                    <img t-att-src="'data:image/png;base64,' + o.signature_base64"
-                         style="max-height: 4cm; max-width: 8cm;"/>
+                   <img t-att-src="image_data_uri(o.signature)" style="max-height: 4cm; max-width: 8cm;"/>
                 </div>
                 <div t-if="o.nif" class="offset-8">
                     <strong>NIF:</strong>
