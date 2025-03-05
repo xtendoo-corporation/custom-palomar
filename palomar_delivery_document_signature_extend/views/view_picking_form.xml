@@ -10,6 +10,10 @@
             <xpath expr="//widget[@name='signature']" position="replace">
                 <widget name="signature_custom" string="Firmar"/>
             </xpath>
+            <xpath expr="//page[@name='extra']/group/group/field[@name='company_id']" position="after">
+                <field name="nif" readonly="1"/>
+                <field name="signature" widget="image" options="{'preview_image': 'signature'}" readonly="1"/>
+            </xpath>
         </field>
     </record>
 </odoo>
