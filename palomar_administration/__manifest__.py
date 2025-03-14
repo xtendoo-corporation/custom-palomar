@@ -19,6 +19,7 @@
         "views/product_view.xml",
         "views/account_move_report.xml",
         "views/account_move_views.xml",
+        "views/sale_order_line_tree_view.xml",
     ],
     "installable": True,
 }
