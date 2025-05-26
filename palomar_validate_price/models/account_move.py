@@ -12,6 +12,11 @@ class account_move(models.Model):
                         'El precio del producto %s no puede ser 0.' % line.product_id.name
                     )
 
+                # Validar que el precio no sea negativo
+                print("*"*80)
+                print("line.price_unit:", line.price_unit)
+                print("line.purchase_price:", line.purchase_price)
+
                 # Validar que el precio no sea menor que el coste
                 if line.price_unit < line.purchase_price:
                     raise ValidationError(
