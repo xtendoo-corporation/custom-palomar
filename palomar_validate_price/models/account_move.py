@@ -13,12 +13,12 @@ class account_move(models.Model):
                     )
 
                 # Validar que el precio no sea menor que el coste
-                if line.price_unit < line.product_id.standard_price:
+                if line.price_unit < line.purchase_price:
                     raise ValidationError(
                         'El precio del producto %s (%s) no puede ser inferior a su coste (%s).' % (
                             line.product_id.name,
                             round(line.price_unit, 2),
-                            round(line.product_id.standard_price, 2)
+                            round(line.line.purchase_price, 2)
                         )
                     )
         return super(account_move, self).button_validate()
