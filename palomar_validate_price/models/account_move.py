@@ -4,9 +4,10 @@ from odoo.exceptions import ValidationError
 class account_move(models.Model):
     _inherit = 'account.move'
 
+
     def action_post(self):
         for move in self:
-            for line in move.invoice_line_ids:
+            for line in move.invoice_line_ids.filtered(lambda l: not l.display_type):  # Excluir notas y secciones
                 if line.price_unit == 0.00:
                     raise ValidationError(
                         f'El precio del producto {line.product_id.name} no puede ser 0.00. Por favor, revisa el producto y corrige su precio.'
