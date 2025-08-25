@@ -92,5 +92,21 @@
                 </xpath>
             </field>
         </record>
+
+        <!-- Restricciones para el campo comercial (user_id) en pedidos de venta -->
+        <record id="view_sale_order_form_commercial_restrictions" model="ir.ui.view">
+            <field name="name">sale.order.form.commercial.restrictions</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="groups">palomar_administration.administrador_comerciales</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="user_id" readonly="1" groups="!palomar_administration.administrador_comerciales" class="text-muted"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>

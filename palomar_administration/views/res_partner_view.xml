@@ -6,9 +6,11 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='user_id']" position="attributes">
-                <attribute name="readonly">not user.has_group('palomar_administration.administrador_comerciales')</attribute>
+                <attribute name="groups">palomar_administration.administrador_comerciales</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="user_id" readonly="1" groups="!palomar_administration.administrador_comerciales" class="text-muted"/>
             </xpath>
         </field>
     </record>
 </odoo>
-
