@@ -26,5 +26,12 @@
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
             <field name="comment">Permission to change list prices</field>
         </record>
+
+        <record id="administrador_comerciales" model="res.groups">
+            <field name="category_id" ref="group_others_security"/>
+            <field name="name">Administrador Comerciales</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="comment">Permission to modify commercial user assignments in customer records</field>
+        </record>
     </data>
 </odoo>

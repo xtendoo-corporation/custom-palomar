@@ -10,7 +10,6 @@
         'base',
         'sale_margin',
         'product',
-        'product_standard_margin',
     ],
     "license": "AGPL-3",
     "data": [
@@ -20,6 +19,7 @@
         "views/account_move_report.xml",
         "views/account_move_views.xml",
         "views/sale_order_line_tree_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }
