@@ -20,19 +20,12 @@ class SaleOrder(models.Model):
         if 'user_id' in vals:
             # Verificar si el usuario actual tiene permisos para modificar comerciales
             if not self.env.user.has_group('palomar_administration.administrador_comerciales'):
-                raise AccessError("No tienes permisos para modificar el campo comercial en pedidos de venta. Contacta con un administrador de comerciales.")
+                # Solo verificar si realmente está cambiando el valor
+                for order in self:
+                    if order.user_id.id != vals['user_id']:
+                        raise AccessError("No tienes permisos para modificar el campo comercial en pedidos de venta. Contacta con un administrador de comerciales.")
 
         return super(SaleOrder, self).write(vals)
-
-    @api.model
-    def create(self, vals):
-        # Verificar si se está intentando asignar el campo user_id al crear
-        if 'user_id' in vals and vals['user_id']:
-            # Verificar si el usuario actual tiene permisos para asignar comerciales
-            if not self.env.user.has_group('palomar_administration.administrador_comerciales'):
-                raise AccessError("No tienes permisos para asignar el campo comercial en pedidos de venta. Contacta con un administrador de comerciales.")
-
-        return super(SaleOrder, self).create(vals)
 
     def _get_order_lines_to_report(self):
         down_payment_lines = self.order_line.filtered(lambda line:
