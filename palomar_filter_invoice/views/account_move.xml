@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_account_move_filter_inherit" model="ir.ui.view">
+        <field name="name">account.move.filter.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='late']" position="after">
+                <filter string="Remesadas" name="in_payment_line" domain="[('in_payment_line', '=', True)]"/>
+                <filter string="No Remesadas" name="in_payment_line" domain="[('in_payment_line', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="web.CustomSignatureDialog">
+         <Dialog title="title">
+            <div>
+                <div>
+                    <label for="nif">NIF:</label>
+                    <input type="text" id="nif" t-on-input="onNifChange"/>
+                </div>
+                <NameAndSignature t-props="nameAndSignatureProps" />
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-att-disabled="signature.isSignatureEmpty" t-on-click="onClickConfirm">Adopt &amp; Sign</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        Hereda el informe de factura (account.report_invoice_document) para que
+        la cuenta bancaria de la empresa que se muestra junto a
+        "Comunicaciones de pago" (nodo <p name="payment_communication"> del
+        core) solo aparezca cuando la forma de pago de la factura contenga la
+        palabra "transferencia".
+
+        - Si no hay forma de pago (o.payment_mode_id vacio): no se imprime.
+        - Si la forma de pago no contiene "transferencia": no se imprime.
+        - Si contiene "transferencia" (insensible a mayusculas/minusculas): se
+          imprime.
+
+        No se elimina el nodo original: solo se sustituye su atributo t-if
+        anadiendo la condicion, respetando el resto del formato de factura y
+        las herencias ya existentes en el repositorio.
+    -->
+    <template
+        id="report_invoice_document_bank_account_transfer"
+        inherit_id="account.report_invoice_document"
+        priority="99"
+    >
+        <!--
+            Anade el bloque de cuenta bancaria para transferencias, con el mismo
+            texto que el informe de venta, tras las condiciones de la factura
+            (nodo name="comment", o.narration). Solo se imprime cuando la forma
+            de pago contiene la palabra "transferencia".
+        -->
+        <xpath expr="//div[@name='comment']" position="after">
+            <div
+                name="palomar_transfer_bank_account"
+                class="mb-3"
+                t-if="o.payment_mode_id and 'transferencia' in (o.payment_mode_id.name or '').lower()"
+            >
+                <strong>Transferencias:</strong>
+                <br />
+                <span>ES29 0049 0107 6828 1027 4592 BANCO SANTANDER</span>
+            </div>
+        </xpath>
+    </template>
+</odoo>
