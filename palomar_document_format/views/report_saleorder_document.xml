@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        Anade el bloque de cuenta bancaria para transferencias al informe de
+        venta (presupuesto/pedido), justo despues de las condiciones del
+        documento (nodo con name="order_note").
+
+        El bloque SOLO se imprime cuando la forma de pago del pedido
+        (doc.payment_mode_id, aportado por account_payment_sale) contiene la
+        palabra "transferencia" (insensible a mayusculas/minusculas).
+
+        IMPORTANTE: para que este bloque no aparezca siempre, hay que retirar el
+        texto fijo "Transferencias: ES29 ... BANCO SANTANDER" de los Terminos y
+        condiciones por defecto de venta (Ajustes -> Ventas), ya que ese campo
+        (doc.note) es texto estatico y no admite condiciones.
+    -->
+    <template
+        id="report_saleorder_document_bank_account_transfer"
+        inherit_id="sale.report_saleorder_document"
+        priority="99"
+    >
+        <xpath expr="//span[@name='order_note']" position="after">
+            <div
+                name="palomar_transfer_bank_account"
+                t-if="doc.payment_mode_id and 'transferencia' in (doc.payment_mode_id.name or '').lower()"
+            >
+                <strong>Transferencias:</strong>
+                <br />
+                <span>ES29 0049 0107 6828 1027 4592 BANCO SANTANDER</span>
+            </div>
+        </xpath>
+    </template>
+</odoo>
